@@ -14,23 +14,24 @@ import shutil
 import zipfile
 import gzip
 
+
 def download(url, dirpath):
     filename = url.split('/')[-1]
     filepath = os.path.join(dirpath, filename)
     try:
         u = urllib2.urlopen(url)
     except:
-        print("URL %s failed to open" %url)
+        print("URL %s failed to open" % url)
         raise Exception
     try:
         f = open(filepath, 'wb')
     except:
-        print("Cannot write %s" %filepath)
+        print("Cannot write %s" % filepath)
         raise Exception
     try:
         filesize = int(u.info().getheaders("Content-Length")[0])
     except:
-        print("URL %s failed to report length" %url)
+        print("URL %s failed to report length" % url)
         raise Exception
     print("Downloading: %s Bytes: %s" % (filename, filesize))
 
@@ -47,11 +48,12 @@ def download(url, dirpath):
         downloaded += len(buf)
         f.write(buf)
         status = (("[%-" + str(status_width + 1) + "s] %3.2f%%") %
-            ('=' * int(float(downloaded) / filesize * status_width) + '>', downloaded * 100. / filesize))
+                  ('=' * int(float(downloaded) / filesize * status_width) + '>', downloaded * 100. / filesize))
         print(status, end='')
         sys.stdout.flush()
     f.close()
     return filepath
+
 
 def unzip(filepath):
     print("Extracting: " + filepath)
@@ -59,6 +61,7 @@ def unzip(filepath):
     with zipfile.ZipFile(filepath) as zf:
         zf.extractall(dirpath)
     os.remove(filepath)
+
 
 def download_tagger(dirpath):
     tagger_dir = 'stanford-tagger'
@@ -74,6 +77,7 @@ def download_tagger(dirpath):
     os.remove(filepath)
     os.rename(os.path.join(dirpath, zip_dir), os.path.join(dirpath, tagger_dir))
 
+
 def download_parser(dirpath):
     parser_dir = 'stanford-parser'
     if os.path.exists(os.path.join(dirpath, parser_dir)):
@@ -88,6 +92,7 @@ def download_parser(dirpath):
     os.remove(filepath)
     os.rename(os.path.join(dirpath, zip_dir), os.path.join(dirpath, parser_dir))
 
+
 def download_wordvecs(dirpath):
     if os.path.exists(dirpath):
         print('Found Glove vectors - skip')
@@ -96,6 +101,7 @@ def download_wordvecs(dirpath):
         os.makedirs(dirpath)
     url = 'http://www-nlp.stanford.edu/data/glove.840B.300d.zip'
     unzip(download(url, dirpath))
+
 
 def download_sick(dirpath):
     if os.path.exists(dirpath):

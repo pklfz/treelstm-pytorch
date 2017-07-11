@@ -1,5 +1,6 @@
 # vocab object from harvardnlp/opennmt-py
 class Vocab(object):
+
     def __init__(self, filename=None, data=None, lower=False):
         self.idxToLabel = {}
         self.labelToIdx = {}
@@ -10,7 +11,7 @@ class Vocab(object):
 
         if data is not None:
             self.addSpecials(data)
-        if filename  is not None:
+        if filename is not None:
             self.loadFile(filename)
 
     def size(self):
