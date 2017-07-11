@@ -7,7 +7,7 @@ Networks](http://arxiv.org/abs/1503.00075).
 - [PyTorch](http://pytorch.org/)
 - [tqdm](https://github.com/tqdm/tqdm)
 - Java >= 8 (for Stanford CoreNLP utilities)
-- Python >= 2.7
+- Python >= 3
 
 ### Usage
 First run the script `./fetch_and_preprocess.sh`, which downloads:
